@@ -1,7 +1,7 @@
+import pytest
 from fastapi.testclient import TestClient
 
-from app.main import app
-from app.tests.other import test_api_deposit_invalid_1_resp_body
+from app.main import app, custom_openapi
 
 client = TestClient(app=app)
 
@@ -41,5 +41,26 @@ def test_api_deposit_invalid_1() -> None:
         url="/api/v1/deposit/",
         json={"date": "31-01-2021", "periods": -1, "amount": 9999, "rate": -5},
     )
-    assert response.status_code == 422
-    assert response.json() == test_api_deposit_invalid_1_resp_body
+    assert response.status_code == 400
+    assert response.json() == {
+      "message": "Input should be greater than 0",
+      "type": "greater_than"
+    }
+
+def test_api_deposit_invalid_2() -> None:
+    response = client.post(
+        url="/api/v1/deposit/",
+        json={"date": "31", "periods": 5, "amount": 15000, "rate": 1},
+    )
+    assert response.status_code == 400
+    assert response.json() == {
+      "message": "Value error, time data '31' does not match format '%d.%m.%Y'",
+      "type": "value_error"
+    }
+
+def test_openapi_scheme():
+    try:
+        custom_openapi()
+    except Exception as e:
+        pytest.fail('Exception raised: ' + str(e))
+

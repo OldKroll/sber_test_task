@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -12,5 +12,7 @@ class EntryVector(BaseModel):
 
     @field_validator("date", mode="before")
     @classmethod
-    def date_validation(cls, value: str) -> date:
+    def date_validation(cls, value: Any) -> date:
+        if not isinstance(value, str):
+            raise ValueError(f"Invalid date, must be 'str' with format '%d.%m.%Y'")
         return datetime.strptime(value, "%d.%m.%Y").date()

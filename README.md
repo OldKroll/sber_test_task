@@ -26,15 +26,11 @@ Body: {
   "31.03.2021": 10150.75
 }
 ---
-Response 422:
+Response 400:
 Body: {
   "detail": [
     {
-      "loc": [
-        "string",
-        0
-      ],
-      "msg": "string",
+      "message": "string",
       "type": "string"
     }
   ]

@@ -54,16 +54,14 @@ app/api/v1/__init__.py                        4      0   100%
 app/api/v1/deposit.py                        14      0   100%
 app/main.py                                  22      3    86%   28, 35-36
 app/schemes/__init__.py                       0      0   100%
-app/schemes/deposit.py                       14      1    93%   17
+app/schemes/deposit.py                       14      0   100%
 app/tests/__init__.py                         0      0   100%
-app/tests/other.py                            1      1     0%   1
-app/tests/test_api.py                        25      2    92%   64-65
+app/tests/test_api.py                        29      2    93%   78-79
 app/utils/__init__.py                         0      0   100%
 app/utils/validation/__init__.py              0      0   100%
 app/utils/validation/custom_handlers.py       9      0   100%
 app/utils/validation/error.py                 7      0   100%
 -----------------------------------------------------------------------
-TOTAL                                       100      7    93%
+TOTAL                                       103      5    95%
 
-     
 ```

@@ -43,9 +43,10 @@ def test_api_deposit_invalid_1() -> None:
     )
     assert response.status_code == 400
     assert response.json() == {
-      "message": "Input should be greater than 0",
-      "type": "greater_than"
+        "message": "Input should be greater than 0",
+        "type": "greater_than",
     }
+
 
 def test_api_deposit_invalid_2() -> None:
     response = client.post(
@@ -54,13 +55,25 @@ def test_api_deposit_invalid_2() -> None:
     )
     assert response.status_code == 400
     assert response.json() == {
-      "message": "Value error, time data '31' does not match format '%d.%m.%Y'",
-      "type": "value_error"
+        "message": "Value error, time data '31' does not match format '%d.%m.%Y'",
+        "type": "value_error",
     }
 
-def test_openapi_scheme():
+
+def test_api_deposit_invalid_3() -> None:
+    response = client.post(
+        url="/api/v1/deposit/",
+        json={"date": 31, "periods": 5, "amount": 15000, "rate": 1},
+    )
+    assert response.status_code == 400
+    assert response.json() == {
+        "message": "Value error, Invalid date, must be 'str' with format '%d.%m.%Y'",
+        "type": "value_error",
+    }
+
+
+def test_openapi_scheme() -> None:
     try:
         custom_openapi()
     except Exception as e:
-        pytest.fail('Exception raised: ' + str(e))
-
+        pytest.fail("Exception raised: " + str(e))
